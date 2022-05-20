@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314748155106",
+    "project_id": "zenginim-c84d5",
+    "storage_bucket": "zenginim-c84d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314748155106:android:c3fd71260b67461b0edabb",
+        "android_client_info": {
+          "package_name": "com.yasemintufan.zenginimapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314748155106-ogci6mujavtvd07fkijgo21sqfubolgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVx_IW7b_HWmdBFd60bdldCKZW0fcA9xM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314748155106-ogci6mujavtvd07fkijgo21sqfubolgk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
