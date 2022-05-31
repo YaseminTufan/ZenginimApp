@@ -1,8 +1,11 @@
 package com.yasemintufan.zenginimapp.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,16 +16,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.yasemintufan.zenginimapp.R;
+import com.yasemintufan.zenginimapp.fragments.BagFragment;
 import com.yasemintufan.zenginimapp.fragments.BasketFragment;
+import com.yasemintufan.zenginimapp.fragments.CarFragment;
 import com.yasemintufan.zenginimapp.fragments.HomeFragment;
 import com.yasemintufan.zenginimapp.fragments.SearchFragment;
+import com.yasemintufan.zenginimapp.fragments.WatchFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    Fragment homeFragment,searchFragment,basketFragment;
-    Toolbar toolbar;
+    private Fragment homeFragment,searchFragment,basketFragment;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +38,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
 
         homeFragment = new HomeFragment();
         loadFragment(homeFragment);
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_car:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new CarFragment()).commit();
+                break;
+            case R.id.nav_watch:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new WatchFragment()).commit();
+                break;
+            case R.id.nav_bag:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new BagFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }else {
+            super.onBackPressed();
+        }
     }
 
     private void loadFragment(Fragment homeFragment) {

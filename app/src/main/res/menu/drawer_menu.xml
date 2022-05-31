@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_car"
+            android:icon="@drawable/ic_baseline_directions_car_24"
+            android:title="Car"/>
+        <item android:id="@+id/nav_watch"
+            android:icon="@drawable/ic_baseline_watch_24"
+            android:title="Watch"/>
+        <item android:id="@+id/nav_bag"
+            android:icon="@drawable/ic_baseline_shopping_bag_24"
+            android:title="Bag"/>
+    </group>
+    <item android:title="Communicate">
+        <menu>
+            <item android:id="@+id/nav_new"
+                android:icon="@drawable/ic_baseline_fiber_new_24"
+                android:title="New"/>
+            <item android:id="@+id/nav_best"
+                android:icon="@drawable/ic_baseline_check_24"
+                android:title="Best Seller"/>
+
+        </menu>
+    </item>
 
 </menu>
