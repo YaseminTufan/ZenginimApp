@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.ViewHolder> {
@@ -27,7 +28,6 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         this.context = context;
         this.newProductsModels = newProductsModels;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,9 +40,6 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         Glide.with(context).load(newProductsModels.get(position).getImg_url()).into(holder.newImg);
         holder.newName.setText(newProductsModels.get(position).getName());
         holder.newPrice.setText(String.valueOf(newProductsModels.get(position).getPrice()));
-
-
-
     }
 
     @Override
