@@ -2,6 +2,7 @@ package com.yasemintufan.zenginimapp.fragments;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -33,7 +35,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.yasemintufan.zenginimapp.DataLoadListener;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.adapters.NewProductsAdapter;
+import com.yasemintufan.zenginimapp.adapters.PopularProductAdapter;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
+import com.yasemintufan.zenginimapp.models.PopularProductModel;
 import com.yasemintufan.zenginimapp.viewModels.HomeViewModel;
 
 import java.util.ArrayList;
@@ -44,9 +48,12 @@ public class HomeFragment extends Fragment implements DataLoadListener {
 
     RecyclerView newProductRecyclerview,popularRecyclerview;
     NewProductsAdapter newProductsAdapter;
-    List<NewProductsModel> newProductsModelList;
+    PopularProductAdapter popularProductAdapter;
+    List<PopularProductModel> popularProductModelList;
     HomeViewModel homeViewModel;
-    FirebaseFirestore db;
+    FirebaseFirestore firebaseFirestore;
+    ProgressDialog progressDialog;
+    LinearLayout linearLayout;
 
     public HomeFragment() {
     }
@@ -57,10 +64,57 @@ public class HomeFragment extends Fragment implements DataLoadListener {
         View  view = inflater.inflate(R.layout.fragment_home, container, false);
 
         initComponents(view);
-        setComponents();
+        setRecyclerview();
         imageSlider(view);
+        initViewModel();
+        setProgressDialog();
+        linearLayoutVisibility();
 
+         //PopularRecyclerview
+        popularRecyclerview = view.findViewById(R.id.popular_rec);
+        popularRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        popularProductModelList = new ArrayList<>();
+        popularProductAdapter = new PopularProductAdapter(getContext(),popularProductModelList);
+        popularRecyclerview.setHasFixedSize(true);
+        popularRecyclerview.setAdapter(popularProductAdapter);
+
+
+        firebaseFirestore = firebaseFirestore.getInstance();
+
+        firebaseFirestore.collection("PopularProduct")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PopularProductModel popularProductModel = (PopularProductModel) document.toObject(PopularProductModel.class);
+                                popularProductModelList.add(popularProductModel);
+                                popularProductAdapter.notifyDataSetChanged();
+                                linearLayout.setVisibility(View.VISIBLE);
+                                progressDialog.dismiss();
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
         return view;
+    }
+
+    private void linearLayoutVisibility() {
+
+        linearLayout.setVisibility(View.GONE);
+    }
+
+    private void setProgressDialog() {
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Welcome To My ECommerce App");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
     }
 
     @Override
@@ -68,47 +122,27 @@ public class HomeFragment extends Fragment implements DataLoadListener {
         homeViewModel.getNewProducts().observe(this, new Observer<ArrayList<NewProductsModel>>() {
             @Override
             public void onChanged(ArrayList<NewProductsModel> newProductsModels) {
-
-
+                newProductsAdapter = new NewProductsAdapter(getContext(), newProductsModels);
+                newProductRecyclerview.setAdapter(newProductsAdapter);
+                newProductsAdapter.notifyDataSetChanged();
             }
         });
     }
     private void initComponents(View view) {
 
         newProductRecyclerview = view.findViewById(R.id.new_product_rec);
-        db = FirebaseFirestore.getInstance();
-        popularRecyclerview = view.findViewById(R.id.popular_rec);
+        linearLayout = view.findViewById(R.id.home_layout);
 
     }
-    private void setComponents () {
-        //new Products
+    private void setRecyclerview () {
+
+         //NewProduct Recyclerview
         newProductRecyclerview.setHasFixedSize(true);
         newProductRecyclerview.setLayoutManager(new GridLayoutManager(getContext(),2));
-        newProductsModelList = new ArrayList<>();
-        newProductsAdapter = new NewProductsAdapter(getContext(),newProductsModelList);
-        newProductRecyclerview.setAdapter(newProductsAdapter);
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.init(HomeFragment.this);
-
-        db.collection("NewProduct")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                NewProductsModel newProductsModel = documentSnapshot.toObject(NewProductsModel.class);
-                                newProductsModelList.add(newProductsModel);
-                                newProductsAdapter.notifyDataSetChanged();
-                            }
-                        }else {
-                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
     private void imageSlider (View view) {
+
         //Image slider
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         List<SlideModel> slideModels = new ArrayList<>();
@@ -118,6 +152,12 @@ public class HomeFragment extends Fragment implements DataLoadListener {
         slideModels.add(new SlideModel(R.drawable.canta,"BRILLIANT COLORS", ScaleTypes.CENTER_CROP));
         imageSlider.setImageList(slideModels);
 
+    }
+    private void initViewModel () {
+        //New Products
+
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel.init(HomeFragment.this);
 
     }
 }

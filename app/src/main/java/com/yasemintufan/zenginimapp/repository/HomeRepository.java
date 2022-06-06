@@ -37,7 +37,6 @@ public class HomeRepository {
     static HomeRepository instance;
     private ArrayList<NewProductsModel>newProductsModels = new ArrayList<>();
     FirebaseFirestore firebaseFirestore;
-    NewProductsAdapter newProductsAdapter;
 
     static HomeFragment mContext;
     static DataLoadListener dataLoadListener;
