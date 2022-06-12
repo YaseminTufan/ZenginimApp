@@ -4,6 +4,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdk 32
 
+    viewBinding {
+        enabled = true
+    }
     dataBinding {
         enabled = true
     }

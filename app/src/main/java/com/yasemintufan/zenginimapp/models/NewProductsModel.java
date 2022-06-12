@@ -1,6 +1,8 @@
 package com.yasemintufan.zenginimapp.models;
 
-public class NewProductsModel {
+import java.io.Serializable;
+
+public class NewProductsModel implements Serializable {
 
     String description;
     String img_url;

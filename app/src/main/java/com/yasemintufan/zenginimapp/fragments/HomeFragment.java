@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment implements DataLoadListener {
     NewProductsAdapter newProductsAdapter;
     PopularProductAdapter popularProductAdapter;
     List<PopularProductModel> popularProductModelList;
+    List<NewProductsModel> newProductsModels;
     HomeViewModel homeViewModel;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;

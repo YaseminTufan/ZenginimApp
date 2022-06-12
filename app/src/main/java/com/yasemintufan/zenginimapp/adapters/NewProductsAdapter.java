@@ -1,7 +1,10 @@
 package com.yasemintufan.zenginimapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.gesture.GestureLibraries;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +12,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.yasemintufan.zenginimapp.R;
+import com.yasemintufan.zenginimapp.fragments.DetailFragment;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.ViewHolder> {
+public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.ViewHolder>{
 
 
    private Context context;
    private List <NewProductsModel> newProductsModels;
+   String id;
 
     public NewProductsAdapter(Context context, List<NewProductsModel> newProductsModels) {
         this.context = context;
@@ -35,11 +45,18 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         Glide.with(context).load(newProductsModels.get(position).getImg_url()).into(holder.newImg);
         holder.newName.setText(newProductsModels.get(position).getName());
         holder.newPrice.setText(String.valueOf(newProductsModels.get(position).getPrice()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
     }
 
     @Override
