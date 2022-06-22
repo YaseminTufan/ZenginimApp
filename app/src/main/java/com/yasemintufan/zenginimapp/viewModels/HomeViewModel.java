@@ -26,4 +26,6 @@ public class HomeViewModel extends ViewModel {
     public LiveData<ArrayList<NewProductsModel>> getNewProducts () {
         return newProducts;
     }
+
+
 }

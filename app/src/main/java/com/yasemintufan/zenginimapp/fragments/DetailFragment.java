@@ -33,6 +33,7 @@ import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.adapters.NewProductsAdapter;
 import com.yasemintufan.zenginimapp.databinding.FragmentDetailBinding;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
+import com.yasemintufan.zenginimapp.viewModels.CarViewModel;
 import com.yasemintufan.zenginimapp.viewModels.HomeViewModel;
 
 import java.io.Serializable;
@@ -40,45 +41,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class DetailFragment extends Fragment {
+    FragmentDetailBinding fragmentDetailBinding;
+    CarViewModel carViewModel;
 
-    ImageView detailImg;
-    TextView rating,name,description,price;
-    Button addToCart,buyNow;
-    ImageView addItems,removeItems;
 
-    FirebaseFirestore firebaseFirestore;
-    NewProductsModel newProductsModel;
-    private String string;
+
     public DetailFragment() {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-         View view =  inflater.inflate(R.layout.fragment_detail, container, false);
-
-
-
-
-         firebaseFirestore = FirebaseFirestore.getInstance();
-
-
-         detailImg = view.findViewById(R.id.detail_img);
-        name = view.findViewById(R.id.detail_name);
-        description = view.findViewById(R.id.detail_desc);
-        price = view.findViewById(R.id.detail_price);
-        addToCart = view.findViewById(R.id.add_to_cart);
-        buyNow = view.findViewById(R.id.buy_now);
-        addItems = view.findViewById(R.id.add_item);
-        removeItems = view.findViewById(R.id.remove_item);
-
-
-
-
-
-        return view;
+        fragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false);
+        return fragmentDetailBinding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
+        fragmentDetailBinding.setCarViewModel(carViewModel);
+    }
 }
 
 

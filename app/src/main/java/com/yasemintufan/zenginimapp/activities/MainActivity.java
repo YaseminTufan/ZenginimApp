@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
@@ -32,11 +33,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment homeFragment,searchFragment,basketFragment;
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    TextView textName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textName = findViewById(R.id.text_name);
+
+        textName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              Intent i = new Intent(getApplicationContext(),MainActivity.class);
+              startActivity(i);
+            }
+        });
 
         setComponents();
     }
@@ -77,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -1,13 +1,20 @@
 package com.yasemintufan.zenginimapp.fragments;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +32,7 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
     FragmentCarBinding fragmentCarBinding;
    private CarProductAdapter carProductAdapter;
     private CarViewModel carViewModel;
-
+    private static final String TAG = "CarFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,8 +47,11 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        carProductAdapter = new CarProductAdapter();
+        carProductAdapter = new CarProductAdapter(this);
         fragmentCarBinding.carRecyclerView.setAdapter(carProductAdapter);
+        fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
+        fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.HORIZONTAL));
+
 
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
         carViewModel.getCarModel().observe(getViewLifecycleOwner(), new Observer<List<CarProductModel>>() {
@@ -59,6 +69,9 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
 
     @Override
     public void onItemClick(CarProductModel carProductModel) {
+        Log.d(TAG,"onItemClick: " + carProductModel.toString());
+        carViewModel.setCarProductModel(carProductModel);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new DetailFragment()).commit();
 
     }
 }

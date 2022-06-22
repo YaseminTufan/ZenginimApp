@@ -6,6 +6,9 @@
         <variable
             name="carProductModel"
             type="com.yasemintufan.zenginimapp.models.CarProductModel" />
+        <variable
+            name="carInterface"
+            type="com.yasemintufan.zenginimapp.adapters.CarProductAdapter.CarInterface" />
 
     </data>
 
@@ -13,6 +16,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> carInterface.onItemClick(carProductModel)}"
         android:layout_margin="10dp">
 
         <ImageView

@@ -5,12 +5,15 @@
       <map>
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.212" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/activity_main.xml" value="0.2328125" />
+        <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/activity_navigation_drawer.xml" value="0.2328125" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/car_product.xml" value="0.2328125" />
+        <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_bag.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_basket.xml" value="0.20471014492753623" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_car.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_detail.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_home.xml" value="0.2328125" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_search.xml" value="0.20471014492753623" />
+        <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/fragment_watch.xml" value="0.1838768115942029" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/nav_drawer.xml" value="0.20471014492753623" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/new_products.xml" value="0.4" />
         <entry key="..\:/Users/a/AndroidStudioProjects/ZenginimApp/app/src/main/res/layout/popular_item.xml" value="0.2328125" />
