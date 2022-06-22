@@ -41,10 +41,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class DetailFragment extends Fragment {
+
     FragmentDetailBinding fragmentDetailBinding;
     CarViewModel carViewModel;
-
-
 
     public DetailFragment() {
     }
@@ -60,8 +59,13 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setCarViewModel();
+
+    }
+    private void setCarViewModel () {
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
         fragmentDetailBinding.setCarViewModel(carViewModel);
+
     }
 }
 

@@ -33,24 +33,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment homeFragment,searchFragment,basketFragment;
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    TextView textName;
+    private TextView textName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textName = findViewById(R.id.text_name);
 
-        textName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              Intent i = new Intent(getApplicationContext(),MainActivity.class);
-              startActivity(i);
-            }
-        });
-
-        setComponents();
+        initComponents();
+        setHomeFragment();
+        setToolbar();
+        setNavigationDrawer();
+        setNavigationView();
+        appNameClick();
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -70,17 +67,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }else {
             super.onBackPressed();
         }
     }
-
     private void loadFragment(Fragment homeFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_container,homeFragment);
         transaction.commit();
+
     }
 
     @Override
@@ -88,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -106,23 +103,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        return true;
     }
 
-    private void setComponents () {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+    private void setHomeFragment () {
 
         homeFragment = new HomeFragment();
         loadFragment(homeFragment);
 
+    }
+    private void initComponents () {
+
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        textName = findViewById(R.id.text_name);
+
+    }
+    private void setToolbar () {
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+
+    }
+    private void setNavigationView() {
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
 
-        drawer = findViewById(R.id.drawer_layout);
+    private void setNavigationDrawer () {
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
     }
+    private void appNameClick() {
 
+        textName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(i);
+            }
+        });
+    }
 }

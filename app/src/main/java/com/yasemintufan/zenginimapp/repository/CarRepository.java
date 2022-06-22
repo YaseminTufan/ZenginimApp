@@ -30,7 +30,5 @@ public class CarRepository {
 
 
         mutableCarList.setValue(getCarModel);
-        
     }
-
 }

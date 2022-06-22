@@ -26,8 +26,6 @@ public class CarProductAdapter extends ListAdapter<CarProductModel,CarProductAda
         super(CarProductModel.itemCallback);
         this.carInterface = carInterface;
     }
-
-
     @NonNull
     @Override
     public CarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,13 +39,6 @@ public class CarProductAdapter extends ListAdapter<CarProductModel,CarProductAda
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         CarProductModel carProductModel = getItem(position);
         holder.carProductBinding.setCarProductModel(carProductModel);
-        holder.carProductBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
-
     }
 
     class CarViewHolder extends RecyclerView.ViewHolder {

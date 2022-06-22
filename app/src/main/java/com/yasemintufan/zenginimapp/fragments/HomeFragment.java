@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment implements DataLoadListener {
     NewProductsAdapter newProductsAdapter;
     PopularProductAdapter popularProductAdapter;
     List<PopularProductModel> popularProductModelList;
-    List<NewProductsModel> newProductsModels;
     HomeViewModel homeViewModel;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
@@ -66,59 +65,23 @@ public class HomeFragment extends Fragment implements DataLoadListener {
         View  view = inflater.inflate(R.layout.fragment_home, container, false);
 
         initComponents(view);
-        setRecyclerview();
+        setNewProductRecyclerview();
         imageSlider(view);
-        initViewModel();
+        initHomeViewModel();
         setProgressDialog();
         linearLayoutVisibility();
+        setPopularRecyclerview(view);
+        popularFirebaseFirestore();
 
-         //PopularRecyclerview
-        popularRecyclerview = view.findViewById(R.id.popular_rec);
-        popularRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
-        popularProductModelList = new ArrayList<>();
-        popularProductAdapter = new PopularProductAdapter(getContext(),popularProductModelList);
-        popularRecyclerview.setHasFixedSize(true);
-        popularRecyclerview.setAdapter(popularProductAdapter);
-
-
-        firebaseFirestore = firebaseFirestore.getInstance();
-
-        firebaseFirestore.collection("PopularProduct")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                PopularProductModel popularProductModel = (PopularProductModel) document.toObject(PopularProductModel.class);
-                                popularProductModelList.add(popularProductModel);
-                                popularProductAdapter.notifyDataSetChanged();
-                                linearLayout.setVisibility(View.VISIBLE);
-                                progressDialog.dismiss();
-                            }
-                        }else {
-                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
         return view;
     }
+    private void initHomeViewModel () {
+        //New Products
 
-    private void linearLayoutVisibility() {
-
-        linearLayout.setVisibility(View.GONE);
-    }
-
-    private void setProgressDialog() {
-
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle("Welcome To My ECommerce App");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel.init(HomeFragment.this);
 
     }
-
     @Override
     public void onNameLoaded() {
         homeViewModel.getNewProducts().observe(this, new Observer<ArrayList<NewProductsModel>>() {
@@ -134,13 +97,25 @@ public class HomeFragment extends Fragment implements DataLoadListener {
 
         newProductRecyclerview = view.findViewById(R.id.new_product_rec);
         linearLayout = view.findViewById(R.id.home_layout);
+        popularRecyclerview = view.findViewById(R.id.popular_rec);
 
     }
-    private void setRecyclerview () {
+    private void setNewProductRecyclerview () {
 
          //NewProduct Recyclerview
         newProductRecyclerview.setHasFixedSize(true);
         newProductRecyclerview.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+    }
+    private  void setPopularRecyclerview (View view) {
+
+        //PopularRecyclerview
+
+        popularRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        popularProductModelList = new ArrayList<>();
+        popularProductAdapter = new PopularProductAdapter(getContext(),popularProductModelList);
+        popularRecyclerview.setHasFixedSize(true);
+        popularRecyclerview.setAdapter(popularProductAdapter);
 
     }
     private void imageSlider (View view) {
@@ -155,11 +130,40 @@ public class HomeFragment extends Fragment implements DataLoadListener {
         imageSlider.setImageList(slideModels);
 
     }
-    private void initViewModel () {
-        //New Products
+    private void setProgressDialog() {
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.init(HomeFragment.this);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Welcome To My ECommerce App");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
+    }
+    private void linearLayoutVisibility() {
+
+        linearLayout.setVisibility(View.GONE);
+    }
+
+    private void popularFirebaseFirestore() {
+            firebaseFirestore = firebaseFirestore.getInstance();
+
+            firebaseFirestore.collection("PopularProduct")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    PopularProductModel popularProductModel = (PopularProductModel) document.toObject(PopularProductModel.class);
+                                    popularProductModelList.add(popularProductModel);
+                                    popularProductAdapter.notifyDataSetChanged();
+                                    linearLayout.setVisibility(View.VISIBLE);
+                                    progressDialog.dismiss();
+                                }
+                            }else {
+                                Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
     }
 }

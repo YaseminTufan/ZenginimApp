@@ -30,28 +30,34 @@ import java.util.List;
 public class CarFragment extends Fragment implements CarProductAdapter.CarInterface {
 
     FragmentCarBinding fragmentCarBinding;
-   private CarProductAdapter carProductAdapter;
+    private CarProductAdapter carProductAdapter;
     private CarViewModel carViewModel;
     private static final String TAG = "CarFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         fragmentCarBinding = FragmentCarBinding.inflate(inflater,container,false);
         return fragmentCarBinding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setCarRecyclerView();
+        initCarViewModel();
+    }
+    private void setCarRecyclerView() {
+
         carProductAdapter = new CarProductAdapter(this);
         fragmentCarBinding.carRecyclerView.setAdapter(carProductAdapter);
         fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
         fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.HORIZONTAL));
 
+    }
+    private void initCarViewModel() {
 
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
         carViewModel.getCarModel().observe(getViewLifecycleOwner(), new Observer<List<CarProductModel>>() {
@@ -72,6 +78,5 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
         Log.d(TAG,"onItemClick: " + carProductModel.toString());
         carViewModel.setCarProductModel(carProductModel);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new DetailFragment()).commit();
-
     }
 }
