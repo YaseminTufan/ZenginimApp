@@ -70,6 +70,7 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
 
     @Override
     public void addItem(CarProductModel carProductModel) {
+        Log.d(TAG,"addItem: " +carProductModel.toString());
 
     }
 

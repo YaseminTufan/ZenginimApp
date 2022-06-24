@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:text="Add To Cart"
             android:layout_gravity="center"
+            android:onClick="@{() -> carInterface.addItem(carProductModel)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             style="@style/Widget.MaterialComponents.Button.TextButton" />
     </LinearLayout>
