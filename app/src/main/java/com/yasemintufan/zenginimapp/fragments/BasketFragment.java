@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yasemintufan.zenginimapp.R;
+import com.yasemintufan.zenginimapp.adapters.BasketListAdapter;
 import com.yasemintufan.zenginimapp.databinding.FragmentBagBinding;
 import com.yasemintufan.zenginimapp.databinding.FragmentBasketBinding;
 import com.yasemintufan.zenginimapp.databinding.FragmentCarBinding;
@@ -44,14 +45,15 @@ public class BasketFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        fragmentBasketBinding.basketRecyclerview.setAdapter();
+        BasketListAdapter basketListAdapter = new BasketListAdapter();
+        fragmentBasketBinding.basketRecyclerview.setAdapter(basketListAdapter);
         fragmentBasketBinding.basketRecyclerview.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
 
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
         carViewModel.getBasket().observe(getViewLifecycleOwner(), new Observer<List<BasketItem>>() {
             @Override
             public void onChanged(List<BasketItem> basketItems) {
+                basketListAdapter.submitList(basketItems);
 
             }
         });

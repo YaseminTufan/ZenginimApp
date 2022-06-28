@@ -1,5 +1,11 @@
 package com.yasemintufan.zenginimapp.models;
 
+import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+
 import java.util.Objects;
 
 public class BasketItem {
@@ -43,5 +49,21 @@ public class BasketItem {
         BasketItem that = (BasketItem) o;
         return getQuantity() == that.getQuantity() && getCarProductModel().equals(that.getCarProductModel());
     }
+    @BindingAdapter("android:setVal")
+    public static void getSelectedSpinnerValue(Spinner spinner,int quantity) {
+        spinner.setSelection(quantity -1,true);
+
+    }
+    public static DiffUtil.ItemCallback<BasketItem> itemCallback = new DiffUtil.ItemCallback<BasketItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull BasketItem oldItem, @NonNull BasketItem newItem) {
+            return oldItem.getCarProductModel().equals(newItem.getCarProductModel());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull BasketItem oldItem, @NonNull BasketItem newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
 }

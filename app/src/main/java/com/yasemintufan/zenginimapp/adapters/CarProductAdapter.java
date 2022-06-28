@@ -39,6 +39,7 @@ public class CarProductAdapter extends ListAdapter<CarProductModel,CarProductAda
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         CarProductModel carProductModel = getItem(position);
         holder.carProductBinding.setCarProductModel(carProductModel);
+        holder.carProductBinding.executePendingBindings();
     }
 
     class CarViewHolder extends RecyclerView.ViewHolder {
