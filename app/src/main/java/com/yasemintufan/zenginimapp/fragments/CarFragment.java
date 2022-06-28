@@ -70,13 +70,13 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
 
     @Override
     public void addItem(CarProductModel carProductModel) {
-        Log.d(TAG,"addItem: " +carProductModel.toString());
+        boolean isAdded = carViewModel.addCarToCart(carProductModel);
+        Log.d(TAG,"addItem: " + carProductModel.getName() + isAdded);
 
     }
 
     @Override
     public void onItemClick(CarProductModel carProductModel) {
-        Log.d(TAG,"onItemClick: " + carProductModel.toString());
         carViewModel.setCarProductModel(carProductModel);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new DetailFragment()).commit();
     }

@@ -178,6 +178,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardview"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintWidth_percent=".8"
+            android:onClick="@{() -> carViewModel.addCarToCart(carViewModel.carModels)}"
             android:padding="14dp" />
 
         <Button

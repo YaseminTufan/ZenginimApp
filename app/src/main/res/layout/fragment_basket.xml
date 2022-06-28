@@ -15,7 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/basketRecyclerview"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/basket_row"
+            tools:itemCount="2"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

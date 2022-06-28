@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.yasemintufan.zenginimapp.models.BasketItem;
 import com.yasemintufan.zenginimapp.models.CarProductModel;
+import com.yasemintufan.zenginimapp.repository.BasketRepository;
 import com.yasemintufan.zenginimapp.repository.CarRepository;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 public class CarViewModel extends ViewModel {
 
     CarRepository carRepository = new CarRepository();
+    BasketRepository basketRepository = new BasketRepository();
 
     MutableLiveData<CarProductModel> mutableCar = new MutableLiveData<>();
 
@@ -25,5 +28,13 @@ public class CarViewModel extends ViewModel {
     }
     public LiveData <CarProductModel> getCarModels() {
         return mutableCar;
+    }
+
+    public LiveData<List<BasketItem>> getBasket() {
+        return basketRepository.getBasket();
+    }
+    public boolean addCarToCart(CarProductModel carProductModel){
+        return basketRepository.addItemToCart(carProductModel);
+
     }
 }

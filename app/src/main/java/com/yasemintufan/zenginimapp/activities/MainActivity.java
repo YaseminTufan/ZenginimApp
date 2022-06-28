@@ -8,10 +8,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +30,10 @@ import com.yasemintufan.zenginimapp.fragments.CarFragment;
 import com.yasemintufan.zenginimapp.fragments.HomeFragment;
 import com.yasemintufan.zenginimapp.fragments.SearchFragment;
 import com.yasemintufan.zenginimapp.fragments.WatchFragment;
+import com.yasemintufan.zenginimapp.models.BasketItem;
+import com.yasemintufan.zenginimapp.viewModels.CarViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -34,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private TextView textName;
+    CarViewModel carViewModel;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setNavigationDrawer();
         setNavigationView();
         appNameClick();
+        carViewModel = new ViewModelProvider(this).get(CarViewModel.class);
+        carViewModel.getBasket().observe(this, new Observer<List<BasketItem>>() {
+            @Override
+            public void onChanged(List<BasketItem> basketItems) {
+                Log.d(TAG,"onChanged: " + basketItems.size());
+            }
+        });
     }
 
     @Override
@@ -146,4 +162,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
 }
