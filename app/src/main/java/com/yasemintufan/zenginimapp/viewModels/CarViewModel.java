@@ -37,4 +37,7 @@ public class CarViewModel extends ViewModel {
         return basketRepository.addItemToCart(carProductModel);
 
     }
+    public void removeItemFromBasket(BasketItem basketItem) {
+        basketRepository.removeItemFromBasket(basketItem);
+    }
 }

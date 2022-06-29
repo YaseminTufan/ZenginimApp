@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.api.LogDescriptor;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.adapters.BasketListAdapter;
 import com.yasemintufan.zenginimapp.databinding.FragmentBagBinding;
@@ -23,7 +25,7 @@ import com.yasemintufan.zenginimapp.viewModels.CarViewModel;
 
 import java.util.List;
 
-public class BasketFragment extends Fragment {
+public class BasketFragment extends Fragment implements BasketListAdapter.BasketInterface{
 
     private static final String TAG = "BasketFragment";
     CarViewModel carViewModel;
@@ -45,7 +47,7 @@ public class BasketFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        BasketListAdapter basketListAdapter = new BasketListAdapter();
+        BasketListAdapter basketListAdapter = new BasketListAdapter(this);
         fragmentBasketBinding.basketRecyclerview.setAdapter(basketListAdapter);
         fragmentBasketBinding.basketRecyclerview.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
 
@@ -57,5 +59,10 @@ public class BasketFragment extends Fragment {
 
             }
         });
+    }
+    @Override
+    public void deleteItem(BasketItem basketItem) {
+       carViewModel.removeItemFromBasket(basketItem);
+        
     }
 }

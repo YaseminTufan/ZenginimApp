@@ -13,9 +13,10 @@ import com.yasemintufan.zenginimapp.databinding.BasketRowBinding;
 import com.yasemintufan.zenginimapp.models.BasketItem;
 
 public class BasketListAdapter extends ListAdapter<BasketItem, BasketListAdapter.BasketVH> {
-
-    public BasketListAdapter() {
+      private BasketInterface basketInterface;
+    public BasketListAdapter(BasketInterface basketInterface) {
         super(BasketItem.itemCallback);
+        this.basketInterface = basketInterface;
     }
 
     @NonNull
@@ -37,6 +38,16 @@ public class BasketListAdapter extends ListAdapter<BasketItem, BasketListAdapter
         public BasketVH(@NonNull BasketRowBinding basketRowBinding) {
             super(basketRowBinding.getRoot());
             this.basketRowBinding = basketRowBinding;
+
+            basketRowBinding.deleteProductButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    basketInterface.deleteItem(getItem(getAdapterPosition()));
+                }
+            });
         }
+    }
+    public interface BasketInterface {
+        void deleteItem(BasketItem basketItem);
     }
 }

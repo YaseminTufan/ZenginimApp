@@ -47,4 +47,13 @@ public class BasketRepository {
         mutableBasket.setValue(basketItemList);
         return true;
     }
+    public void removeItemFromBasket(BasketItem basketItem) {
+        if (mutableBasket.getValue() == null) {
+            return;
+        }
+        List<BasketItem> basketItemList = new ArrayList<>(mutableBasket.getValue());
+
+        basketItemList.remove(basketItem);
+        mutableBasket.setValue(basketItemList);
+    }
 }
