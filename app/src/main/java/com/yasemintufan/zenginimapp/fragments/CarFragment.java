@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.adapters.CarProductAdapter;
 import com.yasemintufan.zenginimapp.databinding.FragmentCarBinding;
@@ -50,7 +51,6 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
         initCarViewModel();
     }
     private void setCarRecyclerView() {
-
         carProductAdapter = new CarProductAdapter(this);
         fragmentCarBinding.carRecyclerView.setAdapter(carProductAdapter);
         fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
@@ -71,8 +71,22 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
     @Override
     public void addItem(CarProductModel carProductModel) {
         boolean isAdded = carViewModel.addCarToCart(carProductModel);
-        Log.d(TAG,"addItem: " + carProductModel.getName() + isAdded);
+        if (isAdded) {
+            Snackbar.make(requireView(),carProductModel.getName() + "added to basket.",Snackbar.LENGTH_LONG)
+                    .setAction("Checkout", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            carViewModel.setCarProductModel(carProductModel);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new BasketFragment()).commit();
 
+                        }
+                    }).show();
+        }else {
+            Snackbar.make(requireView(),"Already have the max quantity in basket.",Snackbar.LENGTH_LONG)
+                    .show();
+
+
+        }
     }
 
     @Override
