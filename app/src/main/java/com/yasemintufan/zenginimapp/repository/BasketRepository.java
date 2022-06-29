@@ -27,6 +27,20 @@ public class BasketRepository {
             initBasket();
         }
         List<BasketItem> basketItemList = new ArrayList<>(mutableBasket.getValue());
+        for (BasketItem basketItem: basketItemList) {
+            if (basketItem.getCarProductModel().getName().equals(carProductModel.getName())) {
+                if (basketItem.getQuantity() == 5) {
+                    return false;
+                }
+                int index = basketItemList.indexOf(basketItem);
+                basketItem.setQuantity(basketItem.getQuantity() + 1);
+                basketItemList.set(index,basketItem);
+
+                mutableBasket.setValue(basketItemList);
+
+                return true;
+            }
+        }
 
         BasketItem basketItem = new BasketItem(carProductModel,1);
         basketItemList.add(basketItem);

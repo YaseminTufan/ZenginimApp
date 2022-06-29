@@ -65,5 +65,4 @@ public class BasketItem {
             return oldItem.equals(newItem);
         }
     };
-
 }

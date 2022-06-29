@@ -25,16 +25,12 @@ public class BasketListAdapter extends ListAdapter<BasketItem, BasketListAdapter
         BasketRowBinding basketRowBinding = BasketRowBinding.inflate(layoutInflater,parent,false);
         return new BasketVH(basketRowBinding);
     }
-
     @Override
     public void onBindViewHolder(@NonNull BasketVH holder, int position) {
 
         holder.basketRowBinding.setBasketItem(getItem(position));
         holder.basketRowBinding.executePendingBindings();
-
-
     }
-
     class BasketVH extends RecyclerView.ViewHolder {
 
         BasketRowBinding basketRowBinding;
@@ -43,7 +39,4 @@ public class BasketListAdapter extends ListAdapter<BasketItem, BasketListAdapter
             this.basketRowBinding = basketRowBinding;
         }
     }
-
-
-
 }
