@@ -65,4 +65,9 @@ public class BasketFragment extends Fragment implements BasketListAdapter.Basket
        carViewModel.removeItemFromBasket(basketItem);
         
     }
+
+    @Override
+    public void changeQuantity(BasketItem basketItem, int quantity) {
+        carViewModel.changeQuantity(basketItem, quantity);
+    }
 }

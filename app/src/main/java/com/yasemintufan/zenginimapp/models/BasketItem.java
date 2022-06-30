@@ -57,7 +57,7 @@ public class BasketItem {
     public static DiffUtil.ItemCallback<BasketItem> itemCallback = new DiffUtil.ItemCallback<BasketItem>() {
         @Override
         public boolean areItemsTheSame(@NonNull BasketItem oldItem, @NonNull BasketItem newItem) {
-            return oldItem.getCarProductModel().equals(newItem.getCarProductModel());
+            return oldItem.getQuantity() == newItem.getQuantity();
         }
 
         @Override

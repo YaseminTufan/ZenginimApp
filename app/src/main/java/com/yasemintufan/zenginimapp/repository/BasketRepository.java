@@ -56,4 +56,14 @@ public class BasketRepository {
         basketItemList.remove(basketItem);
         mutableBasket.setValue(basketItemList);
     }
+    public void changeQuantity(BasketItem basketItem, int quantity) {
+        if (mutableBasket.getValue() == null) return;
+
+        List <BasketItem> basketItemList = new ArrayList<>(mutableBasket.getValue());
+        BasketItem updatedItem = new BasketItem(basketItem.getCarProductModel(), quantity);
+        basketItemList.set(basketItemList.indexOf(basketItem), updatedItem);
+
+        mutableBasket.setValue(basketItemList);
+
+    }
 }

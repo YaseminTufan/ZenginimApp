@@ -3,6 +3,7 @@ package com.yasemintufan.zenginimapp.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -45,9 +46,25 @@ public class BasketListAdapter extends ListAdapter<BasketItem, BasketListAdapter
                     basketInterface.deleteItem(getItem(getAdapterPosition()));
                 }
             });
+            basketRowBinding.quantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    int quantity = i + 1;
+                    if (quantity == getItem(getAdapterPosition()).getQuantity()) {
+                        return;
+                    }
+                    basketInterface.changeQuantity(getItem(getAdapterPosition()),quantity);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
     }
     public interface BasketInterface {
         void deleteItem(BasketItem basketItem);
+        void changeQuantity(BasketItem basketItem, int quantity);
     }
 }

@@ -40,4 +40,7 @@ public class CarViewModel extends ViewModel {
     public void removeItemFromBasket(BasketItem basketItem) {
         basketRepository.removeItemFromBasket(basketItem);
     }
+    public void changeQuantity(BasketItem basketItem, int quantity ) {
+        basketRepository.changeQuantity(basketItem, quantity);
+    }
 }
