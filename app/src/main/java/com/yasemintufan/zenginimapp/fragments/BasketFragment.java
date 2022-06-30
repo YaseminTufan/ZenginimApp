@@ -59,6 +59,13 @@ public class BasketFragment extends Fragment implements BasketListAdapter.Basket
 
             }
         });
+        carViewModel.getTotalPrice().observe(getViewLifecycleOwner(), new Observer<Double>() {
+            @Override
+            public void onChanged(Double aDouble) {
+                fragmentBasketBinding.totalTextView.setText("Total: $ "+ aDouble.toString());
+
+            }
+        });
     }
     @Override
     public void deleteItem(BasketItem basketItem) {

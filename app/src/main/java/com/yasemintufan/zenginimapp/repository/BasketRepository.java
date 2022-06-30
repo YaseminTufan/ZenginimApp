@@ -11,7 +11,8 @@ import java.util.List;
 
 public class BasketRepository {
 
-    private MutableLiveData<List<BasketItem>> mutableBasket = new MutableLiveData<>();
+    private MutableLiveData <List<BasketItem>> mutableBasket = new MutableLiveData<>();
+    private MutableLiveData <Double> mutableTotalPrice = new MutableLiveData<>();
 
     public LiveData<List<BasketItem>> getBasket () {
         if (mutableBasket.getValue() == null) {
@@ -21,6 +22,7 @@ public class BasketRepository {
     }
     public void initBasket() {
         mutableBasket.setValue(new ArrayList<BasketItem>());
+        calculateBasketTotal();
     }
     public boolean addItemToCart (CarProductModel carProductModel) {
         if (mutableBasket.getValue() == null) {
@@ -37,6 +39,7 @@ public class BasketRepository {
                 basketItemList.set(index,basketItem);
 
                 mutableBasket.setValue(basketItemList);
+                calculateBasketTotal();
 
                 return true;
             }
@@ -45,6 +48,7 @@ public class BasketRepository {
         BasketItem basketItem = new BasketItem(carProductModel,1);
         basketItemList.add(basketItem);
         mutableBasket.setValue(basketItemList);
+        calculateBasketTotal();
         return true;
     }
     public void removeItemFromBasket(BasketItem basketItem) {
@@ -55,6 +59,7 @@ public class BasketRepository {
 
         basketItemList.remove(basketItem);
         mutableBasket.setValue(basketItemList);
+        calculateBasketTotal();
     }
     public void changeQuantity(BasketItem basketItem, int quantity) {
         if (mutableBasket.getValue() == null) return;
@@ -64,6 +69,21 @@ public class BasketRepository {
         basketItemList.set(basketItemList.indexOf(basketItem), updatedItem);
 
         mutableBasket.setValue(basketItemList);
-
+        calculateBasketTotal();
+    }
+    private void calculateBasketTotal () {
+        if (mutableBasket.getValue() == null) return;
+        double total = 0.0;
+        List <BasketItem> basketItemList = mutableBasket.getValue();
+        for (BasketItem basketItem: basketItemList) {
+            total += basketItem.getCarProductModel().getPrice() * basketItem.getQuantity();
+        }
+        mutableTotalPrice.setValue(total);
+    }
+    public LiveData <Double> getTotalPrice () {
+        if (mutableTotalPrice.getValue() == null) {
+            mutableTotalPrice.setValue(0.0);
+        }
+        return mutableTotalPrice;
     }
 }

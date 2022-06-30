@@ -43,4 +43,7 @@ public class CarViewModel extends ViewModel {
     public void changeQuantity(BasketItem basketItem, int quantity ) {
         basketRepository.changeQuantity(basketItem, quantity);
     }
+    public LiveData <Double> getTotalPrice() {
+        return basketRepository.getTotalPrice();
+    }
 }
