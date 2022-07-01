@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setNavigationDrawer();
         setNavigationView();
         appNameClick();
+        setCarViewModel();
+
+    }
+    private void setCarViewModel() {
         carViewModel = new ViewModelProvider(this).get(CarViewModel.class);
         carViewModel.getBasket().observe(this, new Observer<List<BasketItem>>() {
             @Override
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -162,5 +165,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
 }

@@ -13,6 +13,7 @@ public class CarRepository {
     private MutableLiveData <List<CarProductModel>> mutableCarList;
 
     public LiveData<List<CarProductModel>> getCarModel() {
+
         if (mutableCarList == null) {
             mutableCarList = new MutableLiveData<>();
             loadProducts();

@@ -30,11 +30,13 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
     @NonNull
     @Override
     public PopularProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.popular_item,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull PopularProductAdapter.ViewHolder holder, int position) {
+
         Glide.with(context).load(popularProductModelList.get(position).getImg_url()).into(holder.imageView);
         holder.name.setText(popularProductModelList.get(position).getName());
         holder.price.setText(String.valueOf(popularProductModelList.get(position).getPrice()));
@@ -46,10 +48,12 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         ImageView imageView;
         TextView name,price;
 
         public ViewHolder(@NonNull View itemView) {
+
             super(itemView);
             imageView = itemView.findViewById(R.id.pop_img);
             name = itemView.findViewById(R.id.new_product_name);

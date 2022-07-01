@@ -31,11 +31,8 @@ public class BasketFragment extends Fragment implements BasketListAdapter.Basket
     CarViewModel carViewModel;
     FragmentBasketBinding fragmentBasketBinding;
 
-
     public BasketFragment() {
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,10 +40,23 @@ public class BasketFragment extends Fragment implements BasketListAdapter.Basket
        fragmentBasketBinding = FragmentBasketBinding.inflate(inflater,container,false);
        return fragmentBasketBinding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        basketRecyclerView();
+        carGetTotalPrice();
+    }
+    @Override
+    public void deleteItem(BasketItem basketItem) {
+       carViewModel.removeItemFromBasket(basketItem);
+    }
+    @Override
+    public void changeQuantity(BasketItem basketItem, int quantity) {
+        carViewModel.changeQuantity(basketItem, quantity);
+    }
+    public void basketRecyclerView () {
+
         BasketListAdapter basketListAdapter = new BasketListAdapter(this);
         fragmentBasketBinding.basketRecyclerview.setAdapter(basketListAdapter);
         fragmentBasketBinding.basketRecyclerview.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
@@ -56,25 +66,16 @@ public class BasketFragment extends Fragment implements BasketListAdapter.Basket
             @Override
             public void onChanged(List<BasketItem> basketItems) {
                 basketListAdapter.submitList(basketItems);
-
             }
         });
+    }
+    public void carGetTotalPrice () {
+
         carViewModel.getTotalPrice().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
                 fragmentBasketBinding.totalTextView.setText("Total: $ "+ aDouble.toString());
-
             }
         });
-    }
-    @Override
-    public void deleteItem(BasketItem basketItem) {
-       carViewModel.removeItemFromBasket(basketItem);
-        
-    }
-
-    @Override
-    public void changeQuantity(BasketItem basketItem, int quantity) {
-        carViewModel.changeQuantity(basketItem, quantity);
     }
 }

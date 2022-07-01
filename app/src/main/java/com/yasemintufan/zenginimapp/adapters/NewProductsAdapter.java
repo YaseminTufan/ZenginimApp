@@ -36,6 +36,7 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
    String id;
 
     public NewProductsAdapter(Context context, List<NewProductsModel> newProductsModels) {
+
         this.context = context;
         this.newProductsModels = newProductsModels;
     }
@@ -55,9 +56,9 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
 
     @Override
     public int getItemCount() {
+
         return newProductsModels.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView newImg;

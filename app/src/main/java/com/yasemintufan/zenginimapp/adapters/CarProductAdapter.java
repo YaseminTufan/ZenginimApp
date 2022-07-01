@@ -29,24 +29,25 @@ public class CarProductAdapter extends ListAdapter<CarProductModel,CarProductAda
     @NonNull
     @Override
     public CarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         CarProductBinding carProductBinding = CarProductBinding.inflate(layoutInflater,parent,false);
         carProductBinding.setCarInterface(carInterface);
         return new CarViewHolder(carProductBinding);
     }
-
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
+
         CarProductModel carProductModel = getItem(position);
         holder.carProductBinding.setCarProductModel(carProductModel);
         holder.carProductBinding.executePendingBindings();
     }
-
     class CarViewHolder extends RecyclerView.ViewHolder {
 
         CarProductBinding carProductBinding;
 
         public CarViewHolder(CarProductBinding binding) {
+
             super(binding.getRoot());
             this.carProductBinding = binding;
         }

@@ -71,7 +71,6 @@ public class HomeRepository {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for (DocumentSnapshot documentSnapshot :list) {
                                 newProductsModels.add(documentSnapshot.toObject(NewProductsModel.class));
-
                             }
                             Log.e(TAG,"onSuccess:added");
                             dataLoadListener.onNameLoaded();
@@ -82,10 +81,7 @@ public class HomeRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e(TAG,"onFailure:",e);
-
             }
         });
-
     }
-
 }

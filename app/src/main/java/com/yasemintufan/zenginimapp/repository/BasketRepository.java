@@ -15,6 +15,7 @@ public class BasketRepository {
     private MutableLiveData <Double> mutableTotalPrice = new MutableLiveData<>();
 
     public LiveData<List<BasketItem>> getBasket () {
+
         if (mutableBasket.getValue() == null) {
             initBasket();
         }

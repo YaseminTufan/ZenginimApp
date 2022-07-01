@@ -51,11 +51,11 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
         initCarViewModel();
     }
     private void setCarRecyclerView() {
+
         carProductAdapter = new CarProductAdapter(this);
         fragmentCarBinding.carRecyclerView.setAdapter(carProductAdapter);
         fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
         fragmentCarBinding.carRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.HORIZONTAL));
-
     }
     private void initCarViewModel() {
 
@@ -67,7 +67,6 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
             }
         });
     }
-
     @Override
     public void addItem(CarProductModel carProductModel) {
         boolean isAdded = carViewModel.addCarToCart(carProductModel);
@@ -84,11 +83,8 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
         }else {
             Snackbar.make(requireView(),"Already have the max quantity in basket.",Snackbar.LENGTH_LONG)
                     .show();
-
-
         }
     }
-
     @Override
     public void onItemClick(CarProductModel carProductModel) {
         carViewModel.setCarProductModel(carProductModel);
