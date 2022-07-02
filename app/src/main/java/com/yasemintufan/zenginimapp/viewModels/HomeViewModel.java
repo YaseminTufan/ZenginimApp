@@ -21,8 +21,8 @@ public class HomeViewModel extends ViewModel {
             return;
         }
         newProducts = HomeRepository.getInstance(context).getNewProducts();
-
     }
+
     public LiveData<ArrayList<NewProductsModel>> getNewProducts () {
         return newProducts;
     }

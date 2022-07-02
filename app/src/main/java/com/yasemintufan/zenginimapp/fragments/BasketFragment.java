@@ -65,7 +65,17 @@ public class BasketFragment extends Fragment implements BasketListAdapter.Basket
         carViewModel.getBasket().observe(getViewLifecycleOwner(), new Observer<List<BasketItem>>() {
             @Override
             public void onChanged(List<BasketItem> basketItems) {
+
                 basketListAdapter.submitList(basketItems);
+                fragmentBasketBinding.orderButton.setEnabled(basketItems.size() > 0);
+            }
+        });
+        fragmentBasketBinding.orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new OrderFragment()).commit();
+
             }
         });
     }

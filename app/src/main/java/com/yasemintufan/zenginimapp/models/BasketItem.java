@@ -17,7 +17,6 @@ public class BasketItem {
         this.carProductModel = carProductModel;
         this.quantity = quantity;
     }
-
     public CarProductModel getCarProductModel() {
         return carProductModel;
     }
@@ -25,7 +24,6 @@ public class BasketItem {
     public void setCarProductModel(CarProductModel carProductModel) {
         this.carProductModel = carProductModel;
     }
-
     public int getQuantity() {
         return quantity;
     }
@@ -41,7 +39,6 @@ public class BasketItem {
                 ", quantity=" + quantity +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,7 +56,6 @@ public class BasketItem {
         public boolean areItemsTheSame(@NonNull BasketItem oldItem, @NonNull BasketItem newItem) {
             return oldItem.getQuantity() == newItem.getQuantity();
         }
-
         @Override
         public boolean areContentsTheSame(@NonNull BasketItem oldItem, @NonNull BasketItem newItem) {
             return oldItem.equals(newItem);
