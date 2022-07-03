@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView textName;
     CarViewModel carViewModel;
     private static final String TAG = "MainActivity";
+    private int basketQuantity = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         carViewModel.getBasket().observe(this, new Observer<List<BasketItem>>() {
             @Override
             public void onChanged(List<BasketItem> basketItems) {
-                Log.d(TAG,"onChanged: " + basketItems.size());
+                int quantity = 0;
+                for (BasketItem basketItem: basketItems) {
+                    quantity += basketItem.getQuantity();
+                }
+                basketQuantity = quantity;
+                invalidateOptionsMenu();
             }
         });
     }
@@ -103,6 +109,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menu_shopping);
+        View actionView = menuItem.getActionView();
+
+        TextView basketBadgeTextView = actionView.findViewById(R.id.basket_badge_text_view);
+
+        basketBadgeTextView.setText(String.valueOf(basketQuantity));
+
+        basketBadgeTextView.setVisibility(basketQuantity == 0 ? View.GONE : View.VISIBLE);
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
     }
 
