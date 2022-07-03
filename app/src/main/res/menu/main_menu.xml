@@ -12,6 +12,7 @@
         android:id="@+id/menu_shopping"
         android:title="My Cart"
         android:icon="@drawable/ic_baseline_shopping_basket_24"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        app:actionLayout="@layout/basket_action_item"/>
 
 </menu>
