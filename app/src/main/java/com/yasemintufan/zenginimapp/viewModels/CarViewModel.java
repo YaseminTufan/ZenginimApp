@@ -45,5 +45,6 @@ public class CarViewModel extends ViewModel {
     }
     public LiveData <Double> getTotalPrice() {
         return basketRepository.getTotalPrice();
+
     }
 }

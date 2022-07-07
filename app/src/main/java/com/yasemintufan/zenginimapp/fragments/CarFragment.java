@@ -87,6 +87,7 @@ public class CarFragment extends Fragment implements CarProductAdapter.CarInterf
     }
     @Override
     public void onItemClick(CarProductModel carProductModel) {
+
         carViewModel.setCarProductModel(carProductModel);
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new DetailFragment()).commit();
     }

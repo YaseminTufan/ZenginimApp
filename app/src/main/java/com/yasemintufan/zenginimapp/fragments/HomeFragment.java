@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import com.yasemintufan.zenginimapp.DataLoadListener;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.adapters.NewProductsAdapter;
 import com.yasemintufan.zenginimapp.adapters.PopularProductAdapter;
+import com.yasemintufan.zenginimapp.models.CarProductModel;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
 import com.yasemintufan.zenginimapp.models.PopularProductModel;
 import com.yasemintufan.zenginimapp.viewModels.HomeViewModel;

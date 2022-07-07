@@ -54,6 +54,7 @@ public class DetailFragment extends Fragment {
 
         fragmentDetailBinding = FragmentDetailBinding.inflate(inflater, container, false);
         return fragmentDetailBinding.getRoot();
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

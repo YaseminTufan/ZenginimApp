@@ -27,5 +27,5 @@ public class HomeViewModel extends ViewModel {
         return newProducts;
     }
 
-
+    
 }

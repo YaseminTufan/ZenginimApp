@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_bag:
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new BagFragment()).commit();
                 break;
+            case R.id.log_out:
+              startActivity(new Intent(MainActivity.this,LoginActivity.class));
+              break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

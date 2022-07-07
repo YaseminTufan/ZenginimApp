@@ -23,15 +23,16 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        initComponents();
 
-
-        auth = FirebaseAuth.getInstance();
-        name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        if(auth.getCurrentUser() != null) {
+            startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
+            finish();
+        }
     }
 
     public void signUp(View view) {
@@ -44,11 +45,11 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter Name!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(userName)) {
+        if (TextUtils.isEmpty(userEmail)) {
             Toast.makeText(this, "Enter Email Adress!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(userName)) {
+        if (TextUtils.isEmpty(userPassword)) {
             Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -67,14 +68,20 @@ public class RegistrationActivity extends AppCompatActivity {
                             startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
                         }else {
                             Toast.makeText(RegistrationActivity.this, "Registration Failed"+task.getException(), Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
-
     }
     public void signİn(View view) {
 
         startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+    }
+    public void initComponents () {
+
+        auth = FirebaseAuth.getInstance();
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+
     }
 }

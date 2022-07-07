@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.fragments.DetailFragment;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
+import com.yasemintufan.zenginimapp.viewModels.HomeViewModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         Glide.with(context).load(newProductsModels.get(position).getImg_url()).into(holder.newImg);
         holder.newName.setText(newProductsModels.get(position).getName());
         holder.newPrice.setText(String.valueOf(newProductsModels.get(position).getPrice()));
+
     }
 
     @Override
