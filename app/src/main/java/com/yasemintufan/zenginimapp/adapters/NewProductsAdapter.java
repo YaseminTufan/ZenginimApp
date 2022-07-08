@@ -34,7 +34,6 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
 
    private Context context;
    private List <NewProductsModel> newProductsModels;
-   String id;
 
     public NewProductsAdapter(Context context, List<NewProductsModel> newProductsModels) {
 
@@ -55,7 +54,6 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         holder.newPrice.setText(String.valueOf(newProductsModels.get(position).getPrice()));
 
     }
-
     @Override
     public int getItemCount() {
 
