@@ -56,4 +56,6 @@ android {
         implementation 'com.github.bumptech.glide:glide:4.13.0'
         implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.1'
         implementation 'androidx.lifecycle:lifecycle-livedata:2.4.1'
+        implementation "com.hendraanggrian.appcompat:socialview:0.2"
+        implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
     }

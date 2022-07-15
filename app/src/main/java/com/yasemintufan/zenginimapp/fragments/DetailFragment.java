@@ -34,6 +34,7 @@ import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.adapters.NewProductsAdapter;
 import com.yasemintufan.zenginimapp.databinding.FragmentDetailBinding;
 import com.yasemintufan.zenginimapp.models.NewProductsModel;
+import com.yasemintufan.zenginimapp.viewModels.BagViewModel;
 import com.yasemintufan.zenginimapp.viewModels.CarViewModel;
 import com.yasemintufan.zenginimapp.viewModels.HomeViewModel;
 
@@ -45,6 +46,7 @@ public class DetailFragment extends Fragment {
 
     FragmentDetailBinding fragmentDetailBinding;
     CarViewModel carViewModel;
+    BagViewModel bagViewModel;
 
     public DetailFragment() {
     }
@@ -61,7 +63,14 @@ public class DetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setCarViewModel();
+        setBagViewModel();
     }
+
+    private void setBagViewModel() {
+        bagViewModel = new ViewModelProvider(requireActivity()).get(BagViewModel.class);
+        fragmentDetailBinding.setBagViewModel(bagViewModel);
+    }
+
     private void setCarViewModel () {
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
         fragmentDetailBinding.setCarViewModel(carViewModel);

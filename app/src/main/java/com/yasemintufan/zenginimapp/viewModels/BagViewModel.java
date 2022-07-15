@@ -9,19 +9,26 @@ import com.yasemintufan.zenginimapp.models.BagProductModel;
 import com.yasemintufan.zenginimapp.repository.BagRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BagViewModel extends ViewModel {
 
-    MutableLiveData<ArrayList<BagProductModel>> bagProducts;
+    BagRepository bagRepository = new BagRepository();
 
-    public void init (BagFragment context) {
-        if (bagProducts != null) {
-            return;
-        }
-        bagProducts = BagRepository.getInstance(context).getBagProduct();
-    }
-    public LiveData <ArrayList<BagProductModel>> getBagProduct() {
+    MutableLiveData <BagProductModel> mutableBag = new MutableLiveData<>();
 
-        return bagProducts;
+    public LiveData<List<BagProductModel>> getBagProduct() {
+
+        return bagRepository.getBagProduct();
+
     }
+    public void setBagProductModel(BagProductModel bagProductModel) {
+
+        mutableBag.setValue(bagProductModel);
+    }
+    public LiveData <BagProductModel> getBag() {
+
+        return mutableBag;
+    }
+
 }

@@ -30,9 +30,12 @@ import com.yasemintufan.zenginimapp.fragments.CarFragment;
 import com.yasemintufan.zenginimapp.fragments.HomeFragment;
 import com.yasemintufan.zenginimapp.fragments.SearchFragment;
 import com.yasemintufan.zenginimapp.fragments.WatchFragment;
+import com.yasemintufan.zenginimapp.models.BagProductModel;
 import com.yasemintufan.zenginimapp.models.BasketItem;
+import com.yasemintufan.zenginimapp.viewModels.BagViewModel;
 import com.yasemintufan.zenginimapp.viewModels.CarViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -57,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setNavigationView();
         appNameClick();
         setCarViewModel();
-
     }
+
     private void setCarViewModel() {
         carViewModel = new ViewModelProvider(this).get(CarViewModel.class);
         carViewModel.getBasket().observe(this, new Observer<List<BasketItem>>() {

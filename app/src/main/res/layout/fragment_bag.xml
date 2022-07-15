@@ -9,10 +9,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/carRecyclerView"
+        android:id="@+id/bagRecyclerView"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/car_product"/>
+       />
 
 
 </FrameLayout>
