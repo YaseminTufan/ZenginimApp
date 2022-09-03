@@ -16,10 +16,14 @@ import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.yasemintufan.zenginimapp.R;
 import com.yasemintufan.zenginimapp.databinding.FragmentSearchBinding;
+import com.yasemintufan.zenginimapp.models.CarProductModel;
+
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
     private SocialAutoCompleteTextView search_bar;
+    private List<CarProductModel>productModelList;
     FragmentSearchBinding fragmentSearchBinding;
 
     public SearchFragment() {
@@ -33,6 +37,7 @@ public class SearchFragment extends Fragment {
         return fragmentSearchBinding.getRoot();
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -41,7 +46,6 @@ public class SearchFragment extends Fragment {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 

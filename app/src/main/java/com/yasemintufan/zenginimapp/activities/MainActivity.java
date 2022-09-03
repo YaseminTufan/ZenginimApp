@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_car:
-                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new CarFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new BagFragment()).commit();
                 break;
             case R.id.nav_watch:
-                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new WatchFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new BagFragment()).commit();
                 break;
             case R.id.nav_bag:
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_container,new BagFragment()).commit();

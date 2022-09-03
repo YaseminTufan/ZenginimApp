@@ -12,11 +12,15 @@ import java.util.Objects;
 
 public class CarProductModel {
 
-    private String name;
-    private double price;
-    private String img_url;
+     String name;
+     int price;
+     String img_url;
 
-    public CarProductModel(String name, double price, String img_url) {
+    public CarProductModel() {
+    }
+
+
+    public CarProductModel(String name, int price, String img_url) {
         this.name = name;
         this.price = price;
         this.img_url = img_url;
@@ -30,11 +34,9 @@ public class CarProductModel {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public int getPrice() { return price;
     }
-
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
